@@ -1,4 +1,4 @@
-/* $Id: More.xs,v 1.2 2003/02/14 23:05:25 xmath Exp $ */
+/* $Id: More.xs,v 1.3 2003/02/19 21:57:41 xmath Exp $ */
 
 #include "EXTERN.h"
 #include "perl.h"
@@ -34,6 +34,7 @@ typedef MAGIC	*B__MAGIC;
 
 
 MODULE = B::More	PACKAGE = B::SV		PREFIX = SV_	
+PROTOTYPES: ENABLE
 
 SV *
 SV_svref(sv)
@@ -43,3 +44,19 @@ SV_svref(sv)
     OUTPUT:
 	RETVAL
 
+
+MODULE = B::More	PACKAGE = B		PREFIX = B_
+
+B::HV
+B_defstash()
+    CODE:
+	RETVAL = PL_defstash;
+    OUTPUT:
+	RETVAL
+
+B::HV
+B_curstash()
+    CODE:
+	RETVAL = PL_curstash;
+    OUTPUT:
+	RETVAL

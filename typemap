@@ -23,7 +23,7 @@ B::BM		T_SV_OBJ
 B::RV		T_SV_OBJ
 B::GV		T_SV_OBJ
 B::CV		T_SV_OBJ
-B::HV		T_SV_OBJ
+B::HV		T_HV_OBJ
 B::AV		T_SV_OBJ
 B::IO		T_SV_OBJ
 
@@ -49,6 +49,14 @@ T_SV_OBJ
 	else
 	    croak(\"$var is not a reference\")
 
+T_HV_OBJ
+	if (SvROK($arg)) {
+	    IV tmp = SvIV((SV*)SvRV($arg));
+	    $var = INT2PTR($type,tmp);
+	}
+	else
+	    croak(\"$var is not a reference\")
+
 T_MG_OBJ
 	if (SvROK($arg)) {
 	    IV tmp = SvIV((SV*)SvRV($arg));
@@ -56,3 +64,7 @@ T_MG_OBJ
 	}
 	else
 	    croak(\"$var is not a reference\")
+
+OUTPUT
+T_HV_OBJ
+        sv_setiv(newSVrv($arg, "B::HV"), PTR2IV($var));
